@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using ExcitelProject.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExcitelProject.Data
@@ -9,5 +10,9 @@ namespace ExcitelProject.Data
             : base(options)
         {
         }
+
+        public DbSet<Lead> Leads { get; set; }
+
+        public DbSet<Subarea> Subareas { get; set; }
     }
 }
