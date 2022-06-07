@@ -6,16 +6,16 @@ namespace ExcitelProject.Models
     {
         public int LeadId { get; set; }
 
-        string? Name { get; set; } = string.Empty;
+        public string? Name { get; set; } = string.Empty;
 
-        string? Address { get; set; } = string.Empty;
+        public string? Address { get; set; } = string.Empty;
 
-        string? MobileNumber { get; set; } = string.Empty;
+        public string? MobileNumber { get; set; } = string.Empty;
 
-        string? Email { get; set; } = string.Empty;
+        public string? Email { get; set; } = string.Empty;
 
         [ForeignKey("SubareaId")]
-        Subarea? Subarea { get; set; }
+        public Subarea? Subarea { get; set; }
 
         public int SubareaId { get; set; } = 0;
     }

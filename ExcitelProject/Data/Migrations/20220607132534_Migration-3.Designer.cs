@@ -4,6 +4,7 @@ using ExcitelProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExcitelProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220607132534_Migration-3")]
+    partial class Migration3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,67 +132,67 @@ namespace ExcitelProject.Data.Migrations
                         {
                             SubareaId = 10,
                             Name = "Subarea name 10",
-                            PINCode = 1000000
+                            PINCode = 100000
                         },
                         new
                         {
                             SubareaId = 11,
                             Name = "Subarea name 11",
-                            PINCode = 1100000
+                            PINCode = 110000
                         },
                         new
                         {
                             SubareaId = 12,
                             Name = "Subarea name 12",
-                            PINCode = 1200000
+                            PINCode = 120000
                         },
                         new
                         {
                             SubareaId = 13,
                             Name = "Subarea name 13",
-                            PINCode = 1300000
+                            PINCode = 130000
                         },
                         new
                         {
                             SubareaId = 14,
                             Name = "Subarea name 14",
-                            PINCode = 1400000
+                            PINCode = 140000
                         },
                         new
                         {
                             SubareaId = 15,
                             Name = "Subarea name 15",
-                            PINCode = 1500000
+                            PINCode = 150000
                         },
                         new
                         {
                             SubareaId = 16,
                             Name = "Subarea name 16",
-                            PINCode = 1600000
+                            PINCode = 160000
                         },
                         new
                         {
                             SubareaId = 17,
                             Name = "Subarea name 17",
-                            PINCode = 1700000
+                            PINCode = 170000
                         },
                         new
                         {
                             SubareaId = 18,
                             Name = "Subarea name 18",
-                            PINCode = 1800000
+                            PINCode = 180000
                         },
                         new
                         {
                             SubareaId = 19,
                             Name = "Subarea name 19",
-                            PINCode = 1900000
+                            PINCode = 190000
                         },
                         new
                         {
                             SubareaId = 20,
                             Name = "Subarea name 20",
-                            PINCode = 2000000
+                            PINCode = 200000
                         });
                 });
 

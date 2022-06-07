@@ -4,8 +4,8 @@
     {
         public int SubareaId { get; set; }
 
-        string Name { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
-        int PINCode { get; set; } = 0;
+        public int PINCode { get; set; } = 0;
     }
 }
