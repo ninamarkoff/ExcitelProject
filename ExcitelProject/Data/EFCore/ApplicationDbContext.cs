@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace ExcitelProject.Data
+namespace ExcitelProject.Data.EFCore
 {
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -24,7 +24,7 @@ namespace ExcitelProject.Data
                 builder.Entity<Subarea>().HasData(
                               new Subarea
                               {
-                                  SubareaId = i + 1,
+                                  Id = i + 1,
                                   Name = $"Subarea name {i + 1}",
                                   PINCode = (i + 1) * 100000,
                               });

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExcitelProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220607000742_Migration-1")]
-    partial class Migration1
+    [Migration("20220608085632_Migration-7")]
+    partial class Migration7
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,177 @@ namespace ExcitelProject.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("ExcitelProject.Models.Lead", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MobileNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SubareaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubareaId");
+
+                    b.ToTable("Leads");
+                });
+
+            modelBuilder.Entity("ExcitelProject.Models.Subarea", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PINCode")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subareas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Subarea name 1",
+                            PINCode = 100000
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Subarea name 2",
+                            PINCode = 200000
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Subarea name 3",
+                            PINCode = 300000
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Subarea name 4",
+                            PINCode = 400000
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Subarea name 5",
+                            PINCode = 500000
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Subarea name 6",
+                            PINCode = 600000
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Subarea name 7",
+                            PINCode = 700000
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Subarea name 8",
+                            PINCode = 800000
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Subarea name 9",
+                            PINCode = 900000
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Subarea name 10",
+                            PINCode = 1000000
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Subarea name 11",
+                            PINCode = 1100000
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Subarea name 12",
+                            PINCode = 1200000
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Subarea name 13",
+                            PINCode = 1300000
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Subarea name 14",
+                            PINCode = 1400000
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "Subarea name 15",
+                            PINCode = 1500000
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "Subarea name 16",
+                            PINCode = 1600000
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "Subarea name 17",
+                            PINCode = 1700000
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "Subarea name 18",
+                            PINCode = 1800000
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "Subarea name 19",
+                            PINCode = 1900000
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Name = "Subarea name 20",
+                            PINCode = 2000000
+                        });
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -224,6 +395,17 @@ namespace ExcitelProject.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("ExcitelProject.Models.Lead", b =>
+                {
+                    b.HasOne("ExcitelProject.Models.Subarea", "Subarea")
+                        .WithMany()
+                        .HasForeignKey("SubareaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Subarea");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
