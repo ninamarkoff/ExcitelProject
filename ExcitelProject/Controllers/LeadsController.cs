@@ -23,7 +23,9 @@ namespace ExcitelProject.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.Leads != null ? 
-                          View(await _context.Leads.ToListAsync()) :
+                          View(await _context.Leads
+                          .Include(l => l.Subarea)
+                          .ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Leads'  is null.");
         }
 
@@ -36,7 +38,9 @@ namespace ExcitelProject.Controllers
             }
 
             var lead = await _context.Leads
+                .Include(l => l.Subarea)
                 .FirstOrDefaultAsync(m => m.LeadId == id);
+
             if (lead == null)
             {
                 return NotFound();
@@ -56,7 +60,7 @@ namespace ExcitelProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LeadId,SubareaId")] Lead lead)
+        public async Task<IActionResult> Create([Bind("LeadId,SubareaId,Name,Address,MobileNumber,Email")] Lead lead)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +79,25 @@ namespace ExcitelProject.Controllers
                 return NotFound();
             }
 
-            var lead = await _context.Leads.FindAsync(id);
+            var lead = await _context.Leads
+                .Include(l => l.Subarea)
+                .FirstOrDefaultAsync(l => l.LeadId == id);
+
+            var subareas = await _context.Subareas.ToListAsync();
+            var subareasView = new List<SelectListItem>();
+
+            foreach (var subarea in subareas)
+            {
+                subareasView.Add(new SelectListItem
+                {
+                    Text = subarea.Name,
+                    Value = subarea.SubareaId.ToString(),
+                });
+            }
+
+            ViewBag.Subareas = subareasView;
+
+
             if (lead == null)
             {
                 return NotFound();
@@ -88,7 +110,7 @@ namespace ExcitelProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LeadId,SubareaId")] Lead lead)
+        public async Task<IActionResult> Edit(int id, [Bind("LeadId,SubareaId,Name,Address,MobileNumber,Email")] Lead lead)
         {
             if (id != lead.LeadId)
             {
@@ -99,8 +121,10 @@ namespace ExcitelProject.Controllers
             {
                 try
                 {
+                    bool hasChanges = _context.ChangeTracker.HasChanges();
+                    int updates = _context.SaveChanges();
                     _context.Update(lead);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(); 
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -116,43 +140,6 @@ namespace ExcitelProject.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(lead);
-        }
-
-        // GET: Leads/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Leads == null)
-            {
-                return NotFound();
-            }
-
-            var lead = await _context.Leads
-                .FirstOrDefaultAsync(m => m.LeadId == id);
-            if (lead == null)
-            {
-                return NotFound();
-            }
-
-            return View(lead);
-        }
-
-        // POST: Leads/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Leads == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Leads'  is null.");
-            }
-            var lead = await _context.Leads.FindAsync(id);
-            if (lead != null)
-            {
-                _context.Leads.Remove(lead);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool LeadExists(int id)
